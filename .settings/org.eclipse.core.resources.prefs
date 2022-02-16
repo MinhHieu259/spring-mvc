@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
 encoding//database/insert_data.sql=UTF-8
 encoding//src/main/java/com/minhhieu/config/JPAConfig.java=UTF-8
+encoding//src/main/java/com/minhhieu/service/impl/CustomUserDetailsService.java=UTF-8
