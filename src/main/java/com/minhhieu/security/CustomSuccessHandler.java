@@ -1,6 +1,7 @@
 package com.minhhieu.security;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,8 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
+import com.minhhieu.util.SecurityUtils;
 
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -24,8 +27,39 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}
+	
+	public RedirectStrategy getRedirectStrategy() {
+		return redirectStrategy;
+	}
+
+	public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
+		this.redirectStrategy = redirectStrategy;
+	}
+
 	private String determineTargetUrl(Authentication authentication) {
 		String url = "";
+		List<String> roles = SecurityUtils.getAuthorities();
+		// neu la Admin
+			if(isAdmin(roles)) {
+				url = "/quan-tri/trang-chu";
+				// neu la User
+			}else if(isUser(roles)) {
+				url = "/trang-chu";
+			}
+		
+		
 		return url;
+	}
+	private boolean isAdmin(List<String> roles) {
+		if(roles.contains("ADMIN")) {
+			return true;
+		}
+		return false;
+	}
+	private boolean isUser(List<String> roles) {
+		if(roles.contains("USER")) {
+			return true;
+		}
+		return false;
 	}
 }
