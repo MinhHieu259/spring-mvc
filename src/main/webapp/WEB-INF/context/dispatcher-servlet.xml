@@ -21,7 +21,7 @@
               http://www.springframework.org/schema/context/spring-context.xsd">
 
    <context:component-scan
-      base-package="com.minhhieu.controller"
+      base-package="com.minhhieu.controller, com.minhhieu.api"
        />
 
    <mvc:annotation-driven />
