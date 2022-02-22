@@ -4,5 +4,6 @@
         <class>com.minhieu.entity.NewEntity</class>
         <class>com.minhieu.entity.UserEntity</class>
         <class>com.minhieu.entity.RoleEntity</class>
+        <class>com.minhieu.entity.CategoryEntity</class>
     </persistence-unit>
 </persistence>
