@@ -13,7 +13,7 @@
 
 <body>
 	<div class="main-content">
-		<form action="#" id="formSubmit"
+		<form action="<c:url value='/quan-tri/bai-viet/danh-sach'/>" id="formSubmit"
 			method="get">
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -76,6 +76,8 @@
 											</tbody>
 										</table>
 										<ul class="pagination" id="pagination"></ul>
+										<input type="hidden" value="" id="page" name="page" /> <input
+											type="hidden" value="" id="limit" name="limit" />
 									</div>
 								</div>
 							</div>
@@ -87,13 +89,19 @@
 	</div>
 	<!-- /.main-content -->
 	<script>
+	var totalPages = ${model.totalPage};
+	var currentPage = ${model.page};
 	$(function () {
         window.pagObj = $('#pagination').twbsPagination({
-            totalPages: 35,
+            totalPages: totalPages,
             visiblePages: 10,
-            startPage: 10,
+            startPage: currentPage,
             onPageClick: function (event, page) {
-                console.info(page + ' (from options)');
+            	if (currentPage != page) {
+            		$('#limit').val(2);
+					$('#page').val(page);
+					$('#formSubmit').submit();
+				}
             }
         });
     });

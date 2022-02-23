@@ -62,7 +62,7 @@
 						
 
 							<li class="">
-								<a href='<c:url value='/quan-tri/bai-viet/danh-sach'/>'>
+								<a href='<c:url value='/quan-tri/bai-viet/danh-sach?page=1&limit=2'/>'>
 									<i class="menu-icon fa fa-caret-right"></i>
 									Danh sách bài viết
 								</a>
