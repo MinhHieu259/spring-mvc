@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.minhhieu.dto.NewDTO;
 import com.minhhieu.entity.NewEntity;
 import com.minhhieu.model.NewModel;
 import com.minhhieu.repository.NewRepository;
@@ -20,14 +22,14 @@ public class NewService implements INewService {
 	private NewRepository newRepository;
 
 	@Override
-	public List<NewModel> findAll() {
-		List<NewModel> models = new ArrayList<>();
-		List<NewEntity> entities = newRepository.findAll();
+	public List<NewDTO> findAll(Pageable pageable) {
+		List<NewDTO> models = new ArrayList<>();
+		List<NewEntity> entities = newRepository.findAll(pageable).getContent();
 		for(NewEntity item : entities) {
-			NewModel newModel = new NewModel();
-			newModel.setTitle(item.getTitle());
-			newModel.setShortDescription(item.getShortDescription());
-			models.add(newModel);
+			NewDTO newDTO = new NewDTO();
+			newDTO.setTitle(item.getTitle());
+			newDTO.setShortDescription(item.getShortDescription());
+			models.add(newDTO);
 		}
 		return models;
 	}

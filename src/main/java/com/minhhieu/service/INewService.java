@@ -2,8 +2,10 @@ package com.minhhieu.service;
 
 import java.util.List;
 
-import com.minhhieu.model.NewModel;
+import org.springframework.data.domain.Pageable;
+
+import com.minhhieu.dto.NewDTO;
 
 public interface INewService {
-	List<NewModel> findAll();
+	List<NewDTO> findAll(Pageable pageable);
 }
