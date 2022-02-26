@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.minhhieu.dto.NewDTO;
+import com.minhhieu.service.ICategoryService;
 import com.minhhieu.service.INewService;
 
 @Controller(value = "newControllerOfAdmin")
 public class NewController {
 	@Autowired
 	private INewService newService;
+	
+	@Autowired
+	private ICategoryService categoryService;
 
 	@RequestMapping(value = "/quan-tri/bai-viet/danh-sach", method = RequestMethod.GET)
 	public ModelAndView showList(@RequestParam("page") int page, @RequestParam("limit") int limit) {
@@ -32,8 +36,14 @@ public class NewController {
 	}
 
 	@RequestMapping(value = "/quan-tri/bai-viet/chinh-sua", method = RequestMethod.GET)
-	public ModelAndView editNew() {
+	public ModelAndView createNew(@RequestParam(value = "id", required = false) Long id) {
 		ModelAndView mav = new ModelAndView("admin/new/edit");
+		NewDTO model = new NewDTO();
+		if(id != null) {
+			model = newService.findById(id);
+		}
+		mav.addObject("categories", categoryService.findAllCategory());
+		mav.addObject("model", model);
 		return mav;
 	}
 }

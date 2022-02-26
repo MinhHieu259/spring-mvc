@@ -28,21 +28,22 @@
 					<div class="page-content">
 						<div class="row">
 							<div class="col-xs-12">
-								<form class="form-horizontal" role="form">
+								<form:form class="form-horizontal" role="form" id="formSubmit" modelAttribute="model">
 										<div class="form-group">
-											  <label for="categoryCode">Thể loại:</label>
-											  <select class="form-control" id="categoryCode" name="categoryCode">
-											    <option value="">1</option>
-											    <option>2</option>
-											    <option>3</option>
-											    <option>4</option>
-											  </select>
+											  <label class="col-sm-3 control-label no-padding-right" for="categoryCode">Thể loại:</label>
+											  <div class="col-sm-9">
+											  <form:select path="categoryCode" id="categoryCode">
+											  	<form:option value="" label="Chọn thể loại"/>
+											  	<form:options items="${categories}"/>
+											  </form:select>
+											  </div>
+											  
 										</div>
 										<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tên bài viết </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="form-field-1" class="col-xs-10 col-sm-5" id="title" name="title" />
+											<form:input path="title" cssClass="col-xs-10 col-sm-5"/>
 										</div>
 									</div>
 									
@@ -53,11 +54,58 @@
 											<input type="file" id="form-field-1" class="col-xs-10 col-sm-5" id="thumbnail" name="thumbnail" />
 										</div>
 									</div>
-								</form>
+									
+									<div class="form-group">
+									  <label class="col-sm-3 control-label no-padding-right" for="shortDescription">Mô tả ngắn:</label>
+									  <div class="col-sm-9">
+									  	  <form:textarea path="shortDescription" rows="5" cols="10" cssClass="form-control" id="shortDescription"/>
+									  </div>
+									</div>
+									
+									<div class="form-group">
+									  <label class="col-sm-3 control-label no-padding-right" for="content">Nội dung:</label>
+									  <div class="col-sm-9">
+									  	<form:textarea path="content" rows="5" cols="10" cssClass="form-control" id="content"/>
+									  </div>
+									</div>
+									
+										<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+										<c:if test="${not empty model.id}">
+											<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												Cập nhật bài viết
+											</button>
+											
+										</c:if>
+										
+										<c:if test="${empty model.id}">
+											<button class="btn btn-info" type="button" id="btnAddOrUpdateNew">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												Thêm bài viết
+											</button>
+											
+										</c:if>
+											
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="ace-icon fa fa-undo bigger-110"></i>
+												Hủy
+											</button>
+										</div>
+									</div>
+								</form:form>
 							</div>
 						</div>
 					</div>
 		</div>
 		</div>
+		<script>
+		$('#btnAddOrUpdateNew').click(function (e) {
+	        e.preventDefault();
+	        var formData = $('#formSubmit').serializeArray();
+	        console.log(formData);
+	    });
+		</script>
 </body>
 </html>
