@@ -7,6 +7,7 @@ import com.minhhieu.entity.NewEntity;
 
 @Component
 public class NewConverter {
+
 	public NewDTO toDto(NewEntity entity) {
 		NewDTO result = new NewDTO();
 		result.setId(entity.getId());
@@ -20,6 +21,14 @@ public class NewConverter {
 	
 	public NewEntity toEntity(NewDTO dto) {
 		NewEntity result = new NewEntity();
+		result.setTitle(dto.getTitle());
+		result.setShortDescription(dto.getShortDescription());
+		result.setContent(dto.getContent());
+		result.setThumbnail(dto.getThumbnail());
+		return result;
+	}
+	
+	public NewEntity toEntity(NewEntity result, NewDTO dto) {
 		result.setTitle(dto.getTitle());
 		result.setShortDescription(dto.getShortDescription());
 		result.setContent(dto.getContent());

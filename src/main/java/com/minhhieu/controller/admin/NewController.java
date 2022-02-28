@@ -42,7 +42,7 @@ public class NewController {
 		if(id != null) {
 			model = newService.findById(id);
 		}
-		mav.addObject("categories", categoryService.findAllCategory());
+		mav.addObject("categories", categoryService.findAll());
 		mav.addObject("model", model);
 		return mav;
 	}

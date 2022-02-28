@@ -19,7 +19,7 @@ public class CategoryService implements ICategoryService {
 	
 
 	@Override
-	public Map<String, String> findAllCategory() {
+	public Map<String, String> findAll() {
 		Map<String, String> result = new HashMap<>();
 		List<CategoryEntity> entities = categoryRepository.findAll(); 
 		for(CategoryEntity item : entities) {

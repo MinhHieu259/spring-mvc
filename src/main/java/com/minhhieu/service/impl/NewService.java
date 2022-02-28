@@ -6,10 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.minhhieu.converter.NewConverter;
 import com.minhhieu.dto.NewDTO;
+import com.minhhieu.entity.CategoryEntity;
 import com.minhhieu.entity.NewEntity;
+import com.minhhieu.repository.CategoryRepository;
 import com.minhhieu.repository.NewRepository;
 import com.minhhieu.service.INewService;
 
@@ -20,6 +23,9 @@ public class NewService implements INewService {
 	
 	@Autowired
 	private NewRepository newRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@Autowired
 	private NewConverter newConverter;
@@ -44,6 +50,24 @@ public class NewService implements INewService {
 	public NewDTO findById(long id) {
 		NewEntity entity = newRepository.findOne(id);
 		return newConverter.toDto(entity);
+	}
+
+	
+
+	@Override
+	@Transactional
+	public NewDTO save(NewDTO dto) {
+		CategoryEntity category = categoryRepository.findOneByCode(dto.getCategoryCode());
+		NewEntity newEntity = new NewEntity();
+		if (dto.getId() != null) {
+			NewEntity oldNew = newRepository.findOne(dto.getId());
+			oldNew.setCategory(category);
+			newEntity = newConverter.toEntity(oldNew, dto);
+		} else {
+			newEntity = newConverter.toEntity(dto);
+			newEntity.setCategory(category);
+		}
+		return newConverter.toDto(newRepository.save(newEntity));
 	}
 
 	

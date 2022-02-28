@@ -3,5 +3,5 @@ package com.minhhieu.service;
 import java.util.Map;
 
 public interface ICategoryService {
-	Map<String, String> findAllCategory();
+	Map<String, String> findAll();
 }
