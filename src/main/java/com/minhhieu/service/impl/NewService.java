@@ -70,6 +70,14 @@ public class NewService implements INewService {
 		return newConverter.toDto(newRepository.save(newEntity));
 	}
 
+	@Override
+	@Transactional
+	public void delete(long[] ids) {
+		for(long id : ids) {
+			newRepository.delete(id);
+		}
+	}
+
 	
 
 
